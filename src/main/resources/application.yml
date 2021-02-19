@@ -1,0 +1,66 @@
+# 配置数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.107.142.114:3306/shop?serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    username: root
+    password: 123456
+  jackson:
+    #json转换的时间格式设置
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd
+    serialization:
+      indent_output: true
+  rabbitmq:
+    host: 47.107.142.114
+    port: 5672
+    username: guest
+    password: guest
+  data:
+    elasticsearch:
+      cluster-name: docker-cluster
+      cluster-nodes: 47.107.142.114:9300
+  redis:
+    host: 47.107.142.114
+    port: 6379
+    password:
+    database: 0
+mybatis:
+  #配置别名基础包
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  type-aliases-package: com.fei.store.vo
+  configuration:
+    #下划线命名与驼峰命名法的自动映射
+    map-underscore-to-camel-case: true
+server:
+  port: 8080
+  servlet:
+    context-path:
+jwt:
+  #请求header所携带token的属性名
+  header: Authorization
+  #用户自定义的口令
+  secret: mySecret
+  #失效时间
+  expiration: 1000000
+  #承载字符串
+  tokenHead: Bearer
+  route:
+    authentication:
+      #token授权url
+      path: /auth
+      #刷新token的url
+      refresh: /refresh
+logging:
+  level:
+    com: debug
+fdfs:
+  soTimeout: 1500 #socket连接超时时长
+  connectTimeout: 600 #连接tracker服务器超时时长
+  reqHost: 47.107.142.114   #nginx访问地址
+  reqPort: 8888              #nginx访问端口
+  thumb-image: #缩略图生成参数，可选
+    width: 150
+    height: 150
+  trackerList: #TrackerList参数,支持多个，我这里只有一个，如果有多个在下方加- x.x.x.x:port
+    - 47.107.142.114:22122
